@@ -22,7 +22,7 @@
           </ul>
         </v-card-title>
         <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
+          <p>{{ missdatos }} </p>
           <p>
             For more information on Vuetify, check out the <a
               href="https://vuetifyjs.com"
@@ -101,11 +101,9 @@ export default {
   methods: {
     carga() {
       this.$axios
-        .get(
-          `http://gsx2json.com/api?id=17CPUBLSR2p2d-Po1NXJqDndpwRTBM4s6r8C8Y0jMrp8&sheet=1&columns=false`
-        )
+        .get(`https://api.sheety.co/291173c6-5cab-4576-87d7-ff38984c1911`)
         .then(response => {
-          this.missdatos = response.data.rows;
+          this.missdatos = response.data;
         });
     }
   },
