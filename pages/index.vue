@@ -10,19 +10,20 @@
       md6
     >
       <div class="text-center">
-        <logo />
-        <vuetify-logo />
+        <h1>CRISTINA AréVALO
+
+        </h1>
       </div>
       <v-card>
         <v-card-title class="headline" v-if="missdatos">
           <!-- {{ missdatos.length }} -->
           <ul v-for="(peli, index) in missdatos" :key="index">
-            <li> {{ peli.abr }} </li>
+            <li> {{ peli.nombreagente }} </li>
 
           </ul>
         </v-card-title>
         <v-card-text>
-          <p>{{ missdatos }} </p>
+          
           <p>
             For more information on Vuetify, check out the <a
               href="https://vuetifyjs.com"
