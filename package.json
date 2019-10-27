@@ -9,11 +9,15 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --dotfiles=true"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "apexcharts": "^3.10.0",
+    "d3": "^5.12.0",
     "nuxt": "^2.0.0",
-    "@nuxtjs/axios": "^5.3.6"
+    "vue-apexcharts": "^1.5.0",
+    "vue-lodash": "^2.0.2"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",

@@ -10,27 +10,23 @@
       md6
     >
       <div class="text-center">
-        <h1>CRISTINA AréVALO
+        <h1>CRISTINA AréVALO Ya andar TESTS
 
         </h1>
       </div>
+
       <v-card>
         <v-card-title class="headline" v-if="missdatos">
           <!-- {{ missdatos.length }} -->
-          <ul v-for="(peli, index) in missdatos" :key="index">
+          <!-- <ul v-for="(peli, index) in pelicol" :key="index">
             <li> {{ peli.nombreagente }} </li>
 
-          </ul>
+          </ul> -->
         </v-card-title>
         <v-card-text>
           
           <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
+            {{ peliculas[0] }}
           </p>
           <p>
             If you have questions, please join the official <a
@@ -88,6 +84,7 @@
 import Logo from "~/components/Logo.vue";
 import VuetifyLogo from "~/components/VuetifyLogo.vue";
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -98,6 +95,25 @@ export default {
   components: {
     Logo,
     VuetifyLogo
+  },
+  computed: {
+    ...mapState(["peliculas"]),
+    pelicol() {
+      if (this.missdatos) {
+        //return this.missdatos.length;
+        return this.lodash.filter(this.missdatos, { abr: "col" });
+      }
+      //let salida = [];
+
+      /* if (this.missdatos) {
+        console.log(this.missdatos);
+        salida = this.lodash.filter(this.missdatos, { abr: "bol" });
+      } else {
+        console.log("tettt");
+      } */
+
+      //return salida;
+    }
   },
   methods: {
     carga() {

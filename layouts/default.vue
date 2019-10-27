@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+    <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       clipped: false,
+      claro: false,
       drawer: false,
       fixed: false,
       items: [
@@ -105,13 +106,28 @@ export default {
           icon: "mdi-chart-bubble",
           title: "Inspire",
           to: "/inspire"
+        },
+        {
+          icon: "mdi-apps",
+          title: "Etiquetas",
+          to: "/cero"
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Graph",
+          to: "/graficas"
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Vuetify.js"
+      title: "Cristina Arévalo Yandar - Confidencial"
     };
   }
 };
 </script>
+<style lang="css">
+.container {
+  background: lightblue;
+}
+</style>

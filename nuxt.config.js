@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
   router: {
     base: '/cris00/'
   },
@@ -18,6 +18,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { src: '//d3js.org/d3.v4.min.js' },
+      // { src: '/d3.timeline.js'}
     ]
   },
   /*
@@ -33,7 +37,10 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-lodash', { src: '~/plugins/apexcharts.js', ssr: false },
+
   ],
+  //{ src: '~node_modules/d3/dist/d3.js', ssr: false }
   /*
   ** Nuxt.js dev-modules
   */
@@ -60,7 +67,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
