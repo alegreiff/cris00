@@ -1,11 +1,16 @@
 <template>
   <div class="example">
+    <div>
+      <p v-for="(y, index) in datosbasicos.paises" :key="index">
+        {{ y }}
+      </p>
+    </div>
       <client-only placeholder="Loading...">
       <apexcharts
         width="500"
         height="350"
         type="bar"
-        :options="chartOptions"
+        :options="chartOptions" 
         :series="series"
       ></apexcharts>
     </client-only>
@@ -17,7 +22,7 @@
 
 <script>
 //import VueApexCharts from 'vue-apexcharts'
-
+import { mapGetters } from "vuex";
 export default {
   name: "Chart",
   components: {
@@ -50,7 +55,7 @@ export default {
           }
         },
         colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5"],
-        labels: ["Vimeo", "Messenger", "Facebook", "LinkedIn"],
+        labels: ["Pornhub", "Messenger", "Facebook", "LinkedIn"],
         legend: {
           show: true,
           floating: true,
@@ -97,6 +102,9 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    ...mapGetters(["datosbasicos", "lospaises", "losyears"])
   }
 };
 </script>

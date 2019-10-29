@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+
   mode: 'universal',
   router: {
     base: '/cris00/'
@@ -37,7 +38,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-lodash', { src: '~/plugins/apexcharts.js', ssr: false },
+    '~/plugins/vue-lodash',
+    { src: '~/plugins/vue-apexchart.js', ssr: false },
 
   ],
   //{ src: '~node_modules/d3/dist/d3.js', ssr: false }
@@ -85,6 +87,7 @@ export default {
   ** Build configuration
   */
   build: {
+    //transpile: ['vue-echarts', 'resize-detector'],
     /*
     ** You can extend webpack config here
     */

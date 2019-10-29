@@ -4,6 +4,12 @@
   "description": "Visualización de datos cine",
   "author": "Jaime de Greiff",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "3333"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -15,8 +21,10 @@
     "@nuxtjs/axios": "^5.3.6",
     "apexcharts": "^3.10.0",
     "d3": "^5.12.0",
+    "echarts": "^4.4.0",
     "nuxt": "^2.0.0",
     "vue-apexcharts": "^1.5.0",
+    "vue-echarts": "^4.0.4",
     "vue-lodash": "^2.0.2"
   },
   "devDependencies": {
