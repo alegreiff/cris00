@@ -1,0 +1,152 @@
+<template>
+  <v-container class="grey lighten-5">
+    <v-row>
+      <v-col cols="6">
+        <client-only>
+      <component :is="apexchart" width="100%" type="bar" :options="chartOptions" :series="series" />
+    </client-only>
+      </v-col>
+      <v-col cols="6"> {{ series[0].data }} </v-col>
+      <v-col cols="6"></v-col>
+      <v-col cols="6"> {{ series[1].data }} </v-col>
+      <v-col cols="12">
+        <v-btn @click="ordenaporpromedio()">Ordena por promedio</v-btn>
+        
+
+    <pre>
+{{ chartOptions.xaxis.categories}}
+
+    </pre>
+        
+      </v-col>
+      
+    </v-row>
+   
+    
+  </v-container>
+</template>
+<script>
+import { mapGetters, mapState } from "vuex";
+export default {
+  data() {
+    return {
+      sort: false,
+      series: [
+        {
+          name: "Tema",
+          data: null
+        },
+        {
+          name: "Promedio",
+          data: null
+        }
+      ],
+      chartOptions: {
+        legend: {
+          show: true
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "100%",
+            endingShape: "rounded"
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+
+        xaxis: {
+          categories: null
+        },
+        yaxis: {
+          title: {}
+        },
+        fill: {
+          opacity: 1
+        }
+      }
+    };
+  },
+  computed: {
+    apexchart() {
+      return () => {
+        if (process.client) {
+          return import("vue-apexcharts");
+        }
+      };
+    },
+    ...mapState(["peliculas"]),
+    ...mapGetters(["listaetiquetas", "datosbasicos"]),
+    lostags() {
+      if (this.sort === true) {
+        return this.lodash.orderBy(this.listaetiquetas, ["promedio"], ["desc"]);
+      } else {
+        return this.lodash.orderBy(this.listaetiquetas, ["contador"], ["desc"]);
+      }
+    },
+    datosgrafico() {
+      let resultado = [];
+      let salida = [];
+      let tema = [];
+      let prom = [];
+      if (this.lostags) {
+        let counter = 0;
+        for (const etiq of this.lostags) {
+          counter++;
+          if (counter < 31) {
+            salida.push(etiq.contador);
+            prom.push(parseInt(etiq.promedio.toFixed(0)));
+            tema.push(etiq.termino);
+          }
+        }
+      }
+      resultado[0] = salida;
+
+      resultado[1] = prom;
+      resultado[2] = tema;
+      return resultado;
+    }
+  },
+  watch: {
+    datosgrafico: function(val) {
+      this.series[0].data = val[0];
+      this.series[1].data = val[1];
+
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: val[2]
+          }
+        }
+      };
+    }
+  },
+  methods: {
+    ordenaporpromedio() {
+      this.sort = !this.sort;
+    }
+  },
+  mounted() {
+    if (this.datosgrafico) {
+      this.series[0].data = this.datosgrafico[0];
+      this.series[1].data = this.datosgrafico[1];
+      //this.chartOptions.xaxis.categories = this.datosgrafico[2];
+      this.chartOptions = {
+        ...this.chartOptions,
+        ...{
+          xaxis: {
+            categories: this.datosgrafico[2]
+          }
+        }
+      };
+    }
+  }
+};
+</script>

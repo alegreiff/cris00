@@ -134,7 +134,8 @@ export default {
           width: 200
         },
         { text: "Ocurrencias", value: "contador", width: 200 },
-        { text: "Visitas", value: "visitas" }
+        { text: "Visitas", value: "visitas" },
+        { text: "PROMM", value: "promedio" }
       ]
     };
   },

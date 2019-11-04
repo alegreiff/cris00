@@ -1,0 +1,301 @@
+<template>
+  <v-container class="grey lighten-5">
+    <v-row>
+      <v-col cols="4" color="primary">{{ indiceMega }} </v-col>
+      <v-col cols="4"> </v-col>
+      <v-col cols="4"> {{ temaseleccionado }} </v-col>
+      </v-row>
+        
+    <v-row>
+      <v-col cols="6" class="pa-2">
+        <v-card>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title class="headline">Nombre de la gráfica</v-list-item-title>
+              <v-list-item-subtitle>subtexto</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-card-text>
+            <component :is="apexchart" width="100%" type="donut" :options="opciones" 
+            :series="series"
+            @dataPointSelection="clicMegaCategorias"
+            />
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn text>Temas agrupados en categorías</v-btn>
+          </v-card-actions>
+        </v-card>
+        </v-col>
+        <v-col cols="6" ></v-col>
+            
+        </v-row>
+        <v-row>
+          <v-col cols="6" v-if="listatemas && datodetalle && series2">
+        <v-card>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title class="headline">Nombre de la gráfica</v-list-item-title>
+              <v-list-item-subtitle>subtexto</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-card-text>
+            <component :is="apexchart" width="100%" height=700 type="bar" :options="opciones2" 
+              :series="series2"
+              @dataPointSelection="clicTemas"
+            />
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn text>Temas agrupados en categorías</v-btn>
+          </v-card-actions>
+        </v-card>
+        </v-col>
+            <v-col cols="6">
+          <v-card v-if="temaseleccionado">
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title class="headline">Tema: {{ temaseleccionado }}</v-list-item-title>
+              <v-list-item-subtitle>subtexto</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-card-text>
+            <v-list>
+               <v-list-item-group color="primary">
+          <v-list-item
+            v-for="(item, i) in peliculasmuestra"
+            :key="i"
+          >
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="item.titulo"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+            </v-list>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn text>Lista de películas con tema: {{ temaseleccionado }} </v-btn>
+          </v-card-actions>
+        </v-card>
+                
+            </v-col>
+            <v-col cols="6">
+                
+            </v-col>
+        </v-row>
+        </v-container>
+    
+</template>
+<script>
+import { mapGetters, mapState } from "vuex";
+export default {
+  data() {
+    return {
+      peliculasmuestra: null,
+      temaseleccionado: null,
+      kolor: null,
+      indiceMega: -1,
+      datodetalle: null,
+      series: [],
+      series2: [
+        {
+          name: "Películas",
+          data: null
+        }
+      ],
+      opciones: {
+        //colors: ["#925787", "#0a898d", "#e1b940", "#d7464f"],
+        //colors: colores,
+        fill: {
+          //colors: ["#925787", "#0a898d", "#e1b940", "#d7464f"]
+        },
+        legend: {
+          show: false,
+
+          position: "bottom",
+          horizontalAlign: "center",
+          floating: false,
+          fontSize: "14px",
+          fontFamily: "Helvetica, Arial",
+          formatter: undefined,
+          inverseOrder: false,
+          width: undefined,
+          height: undefined,
+          tooltipHoverFormatter: undefined,
+          offsetX: 0,
+          offsetY: 0,
+          labels: {
+            colors: undefined,
+            useSeriesColors: true
+          },
+          markers: {
+            width: 12,
+            height: 12,
+            strokeWidth: 0,
+            strokeColor: "#fff",
+            fillColors: undefined,
+            radius: 12,
+            customHTML: undefined,
+            onClick: undefined,
+            offsetX: 0,
+            offsetY: 0
+          },
+          itemMargin: {
+            horizontal: 20,
+            vertical: 5
+          },
+          onItemClick: {
+            toggleDataSeries: true
+          },
+          onItemHover: {
+            highlightDataSeries: true
+          }
+        },
+
+        /*dataLabels: {
+          style: {
+            colors: ["#925787", "#0a898d", "#e1b940", "#d7464f"]
+          }
+        },*/
+        /* theme: {
+          mode: "light",
+
+          monochrome: {
+            enabled: true,
+            color: "#FF26FF",
+            shadeTo: "light",
+            shadeIntensity: 0.65
+          }
+        }, */
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true
+              }
+            }
+          }
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "top"
+              }
+            }
+          }
+        ]
+      },
+      opciones2: {
+        /* theme: {
+          mode: "light",
+
+          monochrome: {
+            enabled: true,
+            color: "#FF26FF",
+            shadeTo: "light",
+            shadeIntensity: 0.65
+          }
+        }, */
+        plotOptions: {
+          bar: {
+            horizontal: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: []
+        }
+      }
+    };
+  },
+  computed: {
+    apexchart() {
+      return () => {
+        if (process.client) {
+          return import("vue-apexcharts");
+        }
+      };
+    },
+    ...mapState(["peliculas"]),
+    ...mapGetters([
+      "listaetiquetas",
+      "datosbasicos",
+      "megacategorias",
+      "loscolores"
+    ]),
+    listatemas() {
+      if (this.indiceMega >= 0) {
+        console.log("jhdasdas");
+        this.datodetalle = this.megacategorias[this.indiceMega].datos;
+        return this.megacategorias[this.indiceMega].temas;
+      } else {
+        return "NO";
+      }
+    }
+  },
+  watch: {
+    datodetalle: function(val) {
+      let series = [];
+      let nombrelabels = [];
+      for (const dato of val) {
+        series.push(dato.veces);
+        nombrelabels.push(dato.termino);
+      }
+      this.series2[0].data = series;
+      this.opciones2 = {
+        colors: this.kolor,
+        ...this.opciones2,
+        ...{
+          xaxis: {
+            categories: nombrelabels
+          }
+        }
+      };
+    }
+  },
+  methods: {
+    clicMegaCategorias(a, b, c) {
+      console.log(c);
+      (this.temaseleccionado = null), (this.indiceMega = c.dataPointIndex);
+    },
+    clicTemas(a, b, c) {
+      //console.log(c.dataPointIndex);
+      //console.log(this.opciones2.xaxis.categories[c.dataPointIndex]);
+      this.temaseleccionado = this.opciones2.xaxis.categories[c.dataPointIndex];
+      this.peliculasmuestra = this.resultadox(this.temaseleccionado);
+    },
+    resultadox(tema) {
+      return this.$store.getters.filtropelis(tema);
+    }
+  },
+  created() {
+    this.kolor = this.lodash.cloneDeep(this.loscolores);
+  },
+  mounted() {
+    let series = [];
+    let nombrelabels = [];
+    for (const dato of this.megacategorias) {
+      series.push(dato.contador);
+      nombrelabels.push(dato.nombre);
+    }
+    this.series = series;
+    this.opciones = {
+      colors: this.kolor,
+      ...this.opciones,
+      labels: nombrelabels
+    };
+  }
+};
+</script>

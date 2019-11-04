@@ -121,6 +121,21 @@ export default {
           icon: "mdi-chart-bubble",
           title: "Vistas",
           to: "/vistas/base"
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Gráfica etiquetas",
+          to: "/visualizaciones/etiquetas"
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Gráfica Categorías",
+          to: "/visualizaciones/categorias"
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "MERO TEST",
+          to: "/visualizaciones/test"
         }
       ],
       miniVariant: false,
@@ -136,7 +151,7 @@ export default {
   /* background: lightblue; */
 }
 
-.col,
+/* .col,
 .col-1,
 .col-2,
 .col-3,
@@ -150,5 +165,5 @@ export default {
 .col-11,
 .col-12 {
   border: 1px red solid;
-}
+} */
 </style>
